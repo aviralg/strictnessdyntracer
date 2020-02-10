@@ -288,6 +288,9 @@ class TracerState {
                               truncate_,
                               binary_,
                               compression_level_);
+
+        event_trace_file_.open(output_dirpath_ + "/" + "events.trace",
+                               std::fstream::out | std::fstream::trunc);
     }
 
     ~TracerState() {
@@ -303,6 +306,7 @@ class TracerState {
         delete context_sensitive_lookups_data_table_;
         delete promise_lifecycles_data_table_;
         delete promise_gc_data_table_;
+        event_trace_file_.close();
     }
 
     const std::string& get_output_dirpath() const {
@@ -433,6 +437,7 @@ class TracerState {
     DataTableStream* context_sensitive_lookups_data_table_;
     DataTableStream* promise_lifecycles_data_table_;
     DataTableStream* promise_gc_data_table_;
+    std::fstream event_trace_file_;
 
     void serialize_configuration_() const {
         std::ofstream fout(get_output_dirpath() + "/CONFIGURATION",
@@ -1572,6 +1577,17 @@ class TracerState {
                 summary.get_promise_lifecycle().get_event_counts(),
                 summary.get_promise_count());
         }
+    }
+
+    template <typename Arg>
+    void raise_event(Arg arg) {
+        event_trace_file_ << arg << RECORD_SEPARATOR << std::endl;
+    }
+
+    template <typename T, typename U, typename... Args>
+    void raise_event(Arg arg, Args... args) {
+        event_trace_file_ << arg << UNIT_SEPARATOR;
+        raise_event(args...);
     }
 
   private:
