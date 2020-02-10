@@ -500,7 +500,7 @@ static SEXP read_compressed_binary_data_table(const std::string& filepath,
     UNPROTECT(nprotect);
 
     if (row_index < data_frame.row_count) {
-        Rf_error("PROMISEDYNTRACER ERROR: read_compressed_binary_data_table: ",
+        Rf_error("STRICTNESSDYNTRACER ERROR: read_compressed_binary_data_table: ",
                  "input file processed completely but all rows not read.");
     }
 

@@ -157,4 +157,4 @@ class Call {
     pos_seq_t force_order_;
 };
 
-#endif /* PROMISEDYTRACER_CALL_H */
+#endif /* STRICTNESSDYNTRACER_CALL_H */
