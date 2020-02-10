@@ -174,12 +174,12 @@ void closure_entry(dyntracer_t* dyntracer,
                 function_id,
                 call_id,
                 argument->get_formal_parameter_position(),
-                state.lookup_variable(rho,
-                                      argument->get_formal_parameter_position(),
-                                      false,
-                                      false),
+                state
+                    .lookup_variable(
+                        rho, argument->get_parameter_name(), false, false)
+                    .get_id(),
                 argument->get_parameter_name(),
-                denoted_value->get_id());
+                value->get_id());
         }
     }
 
@@ -486,7 +486,8 @@ void gc_allocate(dyntracer_t* dyntracer, const SEXP object) {
     if (TYPEOF(object) == PROMSXP) {
         DenotedValue* promise_state = state.create_promise(object);
         env_id_t env_id =
-            state.lookup_environment(promise_state->get_environment(), false);
+            state.lookup_environment(promise_state->get_environment(), false)
+                .get_id();
         state.raise_event(EVENT_PROMISE_CREATE,
                           promise_state->get_id(),
                           env_id,
@@ -617,7 +618,8 @@ void promise_environment_lookup(dyntracer_t* dyntracer, const SEXP promise) {
     promise_state->lookup_environment();
 
     env_id_t env_id =
-        state.lookup_environment(promise_state->get_environment(), false);
+        state.lookup_environment(promise_state->get_environment(), false)
+            .get_id();
 
     state.raise_event(
         EVENT_PROMISE_ENVIRONMENT_LOOKUP, promise_state->get_id(), env_id);
@@ -672,7 +674,7 @@ void promise_environment_assign(dyntracer_t* dyntracer,
 
     promise_state->assign_environment();
 
-    env_id_t env_id = state.lookup_environment(environment, false);
+    env_id_t env_id = state.lookup_environment(environment, false).get_id();
 
     state.raise_event(
         EVENT_PROMISE_ENVIRONMENT_ASSIGN, promise_state->get_id(), env_id);
@@ -755,7 +757,7 @@ void environment_variable_define(dyntracer_t* dyntracer,
         state.raise_event(EVENT_ENVIRONMENT_VARIABLE_DEFINE,
                           env_id,
                           var.get_id(),
-                          variable.get_name(),
+                          var.get_name(),
                           value_type_to_string(value));
     }
 
@@ -797,7 +799,7 @@ void environment_variable_assign(dyntracer_t* dyntracer,
     state.raise_event(EVENT_ENVIRONMENT_VARIABLE_ASSIGN,
                       env_id,
                       var.get_id(),
-                      variable.get_name(),
+                      var.get_name(),
                       value_type_to_string(value));
 
     state.exit_probe(Event::EnvironmentVariableAssign);
@@ -818,7 +820,7 @@ void environment_variable_remove(dyntracer_t* dyntracer,
     state.raise_event(EVENT_ENVIRONMENT_VARIABLE_REMOVE,
                       env_id,
                       var.get_id(),
-                      variable.get_name());
+                      var.get_name());
 
     state.exit_probe(Event::EnvironmentVariableRemove);
 }
@@ -843,7 +845,7 @@ void environment_variable_lookup(dyntracer_t* dyntracer,
     state.raise_event(EVENT_ENVIRONMENT_VARIABLE_LOOKUP,
                       env_id,
                       var.get_id(),
-                      variable.get_name(),
+                      var.get_name(),
                       value_type_to_string(value));
 
     state.exit_probe(Event::EnvironmentVariableLookup);
