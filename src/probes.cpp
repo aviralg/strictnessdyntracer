@@ -791,6 +791,15 @@ void environment_variable_assign(dyntracer_t* dyntracer,
         state.identify_side_effect_creators(var, rho);
     }
 
+    /* environment should have already been created when we called
+     * update_variable */
+    env_id_t env_id = state.lookup_environment(rho, false).get_id();
+    state.raise_event(EVENT_ENVIRONMENT_VARIABLE_ASSIGN,
+                      env_id,
+                      var.get_id(),
+                      variable.get_name(),
+                      type_of_sexp(value));
+
     state.exit_probe(Event::EnvironmentVariableAssign);
 }
 
