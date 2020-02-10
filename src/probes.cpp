@@ -812,6 +812,14 @@ void environment_variable_remove(dyntracer_t* dyntracer,
 
     Variable var = state.lookup_variable(rho, symbol);
 
+    /* environment should have already been created when we called
+     * lookup_variable */
+    env_id_t env_id = state.lookup_environment(rho, false).get_id();
+    state.raise_event(EVENT_ENVIRONMENT_VARIABLE_REMOVE,
+                      env_id,
+                      var.get_id(),
+                      variable.get_name());
+
     state.exit_probe(Event::EnvironmentVariableRemove);
 }
 
