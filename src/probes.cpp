@@ -157,8 +157,7 @@ void closure_entry(dyntracer_t* dyntracer,
     const function_id_t& function_id = function_call->get_function()->get_id();
     const call_id_t call_id = function_call->get_id();
 
-    state.raise_event(EVENT_FUNCTION_ENTRY,
-                      sexptype_to_string(CLOSXP),
+    state.raise_event(EVENT_CLOSURE_ENTRY,
                       function_id,
                       call_id,
                       state.lookup_environment(rho, false).get_id());
@@ -213,7 +212,7 @@ void closure_exit(dyntracer_t* dyntracer,
 
     state.notify_caller(function_call);
 
-    state.raise_event(EVENT_FUNCTION_EXIT, function_call->get_id(), false);
+    state.raise_event(EVENT_CLOSURE_EXIT, function_call->get_id(), false);
 
     state.destroy_call(function_call);
 
@@ -236,8 +235,7 @@ void builtin_entry(dyntracer_t* dyntracer,
 
     state.push_stack(function_call);
 
-    state.raise_event(EVENT_FUNCTION_ENTRY,
-                      sexptype_to_string(BUILTINSXP),
+    state.raise_event(EVENT_BUILTIN_ENTRY,
                       function_call->get_function()->get_id(),
                       function_call->get_id(),
                       state.lookup_environment(rho, false).get_id());
@@ -268,7 +266,7 @@ void builtin_exit(dyntracer_t* dyntracer,
 
     state.notify_caller(function_call);
 
-    state.raise_event(EVENT_FUNCTION_EXIT, function_call->get_id(), false);
+    state.raise_event(EVENT_BUILTIN_EXIT, function_call->get_id(), false);
 
     state.destroy_call(function_call);
 
@@ -291,8 +289,7 @@ void special_entry(dyntracer_t* dyntracer,
 
     state.push_stack(function_call);
 
-    state.raise_event(EVENT_FUNCTION_ENTRY,
-                      sexptype_to_string(SPECIALSXP),
+    state.raise_event(EVENT_SPECIAL_ENTRY,
                       function_call->get_function()->get_id(),
                       function_call->get_id(),
                       state.lookup_environment(rho, false).get_id());
@@ -323,7 +320,7 @@ void special_exit(dyntracer_t* dyntracer,
 
     state.notify_caller(function_call);
 
-    state.raise_event(EVENT_FUNCTION_EXIT, function_call->get_id(), false);
+    state.raise_event(EVENT_SPECIAL_EXIT, function_call->get_id(), false);
 
     state.destroy_call(function_call);
 
@@ -402,7 +399,16 @@ void jump_single_context(TracerState& state,
 
         state.notify_caller(call);
 
-        state.raise_event(EVENT_FUNCTION_EXIT, call->get_id(), true);
+        event_type_t event_type;
+        sexptype_t function_type = call->get_function()->get_type();
+        if (function_type == CLOSXP) {
+            event_type = EVENT_CLOSURE_EXIT;
+        } else if (function_type == BUILTINSXP) {
+            event_type = EVENT_BUILTIN_EXIT;
+        } else if (function_type == SPECIALSXP) {
+            event_type = EVENT_SPECIAL_EXIT;
+        }
+        state.raise_event(event_type, call->get_id(), true);
 
         state.destroy_call(call);
     }

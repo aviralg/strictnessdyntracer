@@ -31,4 +31,6 @@ typedef std::string scope_t;
 
 typedef int gc_cycle_t;
 
+typedef std::string event_type_t;
+
 #endif /* STRICTNESSDYNTRACER_DEFINITIONS_H */
