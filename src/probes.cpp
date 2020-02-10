@@ -412,6 +412,8 @@ void jump_single_context(TracerState& state,
             (promise->get_environment() == rho)) {
             promise->set_non_local_return();
         }
+
+        state.raise_event(EVENT_PROMISE_EXIT, promise->get_id(), true);
     }
 }
 
@@ -557,6 +559,8 @@ void promise_force_exit(dyntracer_t* dyntracer, const SEXP promise) {
     promise_state->set_value_type(type_of_sexp(value));
 
     promise_state->set_execution_time(exec_ctxt.get_execution_time());
+
+    state.raise_event(EVENT_PROMISE_EXIT, promise_state->get_id(), false);
 
     state.exit_probe(Event::PromiseForceExit);
 }
