@@ -654,6 +654,10 @@ void promise_value_assign(dyntracer_t* dyntracer,
 
     promise_state->assign_value();
 
+    state.raise_event(EVENT_PROMISE_VALUE_ASSIGN,
+                      promise_state->get_id(),
+                      get_sexp_type(value));
+
     state.exit_probe(Event::PromiseValueAssign);
 }
 
