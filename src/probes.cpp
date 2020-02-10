@@ -163,6 +163,26 @@ void closure_entry(dyntracer_t* dyntracer,
                       call_id,
                       state.lookup_environment(rho, false).get_id());
 
+    for (int arg_index = 0;
+         arg_index < function_call->get_actual_argument_count();
+         ++arg_index) {
+        Argument* argument = function_call->get_argument(arg_index);
+        DenotedValue* value = argument->get_denoted_value();
+        if (value->get_type() == PROMSXP) {
+            state.raise_event(
+                EVENT_ARGUMENT_PROMISE_ASSOCIATE,
+                function_id,
+                call_id,
+                argument->get_formal_parameter_position(),
+                state.lookup_variable(rho,
+                                      argument->get_formal_parameter_position(),
+                                      false,
+                                      false),
+                argument->get_parameter_name(),
+                denoted_value->get_id());
+        }
+    }
+
     state.exit_probe(Event::ClosureEntry);
 }
 
