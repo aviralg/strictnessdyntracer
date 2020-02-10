@@ -600,6 +600,10 @@ void promise_expression_lookup(dyntracer_t* dyntracer, const SEXP promise) {
 
     promise_state->lookup_expression();
 
+    state.raise_event(EVENT_PROMISE_EXPRESSION_LOOKUP,
+                      promise_state->get_id(),
+                      "<ignored-expression>");
+
     state.exit_probe(Event::PromiseExpressionLookup);
 }
 
