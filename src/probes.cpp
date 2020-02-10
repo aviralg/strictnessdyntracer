@@ -748,6 +748,15 @@ void environment_variable_define(dyntracer_t* dyntracer,
 
     if (!state.argument_list_creation_mode_is_enabled()) {
         Variable& var = state.define_variable(rho, symbol);
+
+        /* environment should have already been created when we called
+         * define_variable */
+        env_id_t env_id = state.lookup_environment(rho, false).get_id();
+        state.raise_event(EVENT_ENVIRONMENT_VARIABLE_DEFINE,
+                          env_id,
+                          var.get_id(),
+                          variable.get_name(),
+                          type_of_sexp(value));
     }
 
     state.exit_probe(Event::EnvironmentVariableDefine);
