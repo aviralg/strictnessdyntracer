@@ -289,8 +289,7 @@ class TracerState {
                               binary_,
                               compression_level_);
 
-        event_trace_file_.open(output_dirpath_ + "/" + "events.trace",
-                               std::fstream::out | std::fstream::trunc);
+        event_trace_file_.open(output_dirpath_ + "/" + "events.trace");
     }
 
     ~TracerState() {
@@ -437,7 +436,7 @@ class TracerState {
     DataTableStream* context_sensitive_lookups_data_table_;
     DataTableStream* promise_lifecycles_data_table_;
     DataTableStream* promise_gc_data_table_;
-    std::fstream event_trace_file_;
+    std::ofstream event_trace_file_;
 
     void serialize_configuration_() const {
         std::ofstream fout(get_output_dirpath() + "/CONFIGURATION",
@@ -1584,7 +1583,7 @@ class TracerState {
         event_trace_file_ << arg << RECORD_SEPARATOR << std::endl;
     }
 
-    template <typename T, typename U, typename... Args>
+    template <typename Arg, typename... Args>
     void raise_event(Arg arg, Args... args) {
         event_trace_file_ << arg << UNIT_SEPARATOR;
         raise_event(args...);
