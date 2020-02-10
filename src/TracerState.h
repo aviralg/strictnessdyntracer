@@ -997,11 +997,14 @@ class TracerState {
                 call->get_environment() == value->get_environment();
         }
 
+        std::string parameter_name = symbol_to_string(name);
+
         Argument* arg = new Argument(call,
                                      formal_parameter_position,
                                      actual_argument_position,
                                      default_argument,
-                                     dot_dot_dot);
+                                     dot_dot_dot,
+                                     parameter_name);
         arg->set_denoted_value(value);
 
         value->add_argument(arg);

@@ -14,12 +14,14 @@ class Argument {
                       int formal_parameter_position,
                       int actual_argument_position,
                       bool default_argument,
-                      bool dot_dot_dot)
+                      bool dot_dot_dot,
+                      const std::string& parameter_name)
         : call_(call)
         , formal_parameter_position_(formal_parameter_position)
         , actual_argument_position_(actual_argument_position)
         , default_argument_(default_argument)
         , dot_dot_dot_(dot_dot_dot)
+        , parameter_name_(parameter_name)
         , direct_force_(false)
         , indirect_force_(false)
         , direct_lookup_count_(0)
@@ -52,6 +54,10 @@ class Argument {
 
     bool is_dot_dot_dot() const {
         return dot_dot_dot_;
+    }
+
+    const std::string& get_parameter_name() const {
+        return parameter_name_;
     }
 
     void direct_force() {
@@ -149,6 +155,7 @@ class Argument {
     const int actual_argument_position_;
     const bool default_argument_;
     const bool dot_dot_dot_;
+    const std::string parameter_name_;
     bool direct_force_;
     bool indirect_force_;
     int direct_lookup_count_;
