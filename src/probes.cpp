@@ -672,6 +672,11 @@ void promise_environment_assign(dyntracer_t* dyntracer,
 
     promise_state->assign_environment();
 
+    env_id_t env_id = state.lookup_environment(environment, false);
+
+    state.raise_event(
+        EVENT_PROMISE_ENVIRONMENT_ASSIGN, promise_state->get_id(), env_id);
+
     state.exit_probe(Event::PromiseEnvironmentAssign);
 }
 
