@@ -168,18 +168,22 @@ void closure_entry(dyntracer_t* dyntracer,
          ++arg_index) {
         Argument* argument = function_call->get_argument(arg_index);
         DenotedValue* value = argument->get_denoted_value();
+        /* environment has already been created but parameter names may not be
+         * bound yet, so we create them*/
+        variable_id_t variable_id =
+            state
+                .lookup_variable(
+                    rho, argument->get_parameter_name(), false, true)
+                .get_id();
+
         if (value->get_type() == PROMSXP) {
-            state.raise_event(
-                EVENT_ARGUMENT_PROMISE_ASSOCIATE,
-                function_id,
-                call_id,
-                argument->get_formal_parameter_position(),
-                state
-                    .lookup_variable(
-                        rho, argument->get_parameter_name(), false, false)
-                    .get_id(),
-                argument->get_parameter_name(),
-                value->get_id());
+            state.raise_event(EVENT_ARGUMENT_PROMISE_ASSOCIATE,
+                              function_id,
+                              call_id,
+                              argument->get_formal_parameter_position(),
+                              variable_id,
+                              argument->get_parameter_name(),
+                              value->get_id());
         }
     }
 
