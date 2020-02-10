@@ -6,9 +6,6 @@
 #include <string>
 #include <vector>
 
-extern const char UNIT_SEPARATOR;
-extern const char RECORD_SEPARATOR;
-
 extern const eval_depth_t ESCAPED_PROMISE_EVAL_DEPTH;
 extern const eval_depth_t UNASSIGNED_PROMISE_EVAL_DEPTH;
 
