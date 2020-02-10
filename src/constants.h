@@ -39,4 +39,26 @@ extern const scope_t UNASSIGNED_SCOPE;
 extern const scope_t TOP_LEVEL_SCOPE;
 
 extern const gc_cycle_t UNDEFINED_GC_CYCLE;
+
+extern const std::string EVENT_FUNCTION_ENTRY;
+extern const std::string EVENT_FUNCTION_EXIT;
+extern const std::string EVENT_ARGUMENT_PROMISE_ASSOCIATE;
+extern const std::string EVENT_PROMISE_CREATE;
+extern const std::string EVENT_PROMISE_ENTRY;
+extern const std::string EVENT_PROMISE_EXIT;
+extern const std::string EVENT_PROMISE_VALUE_LOOKUP;
+extern const std::string EVENT_PROMISE_EXPRESSION_LOOKUP;
+extern const std::string EVENT_PROMISE_ENVIRONMENT_LOOKUP;
+extern const std::string EVENT_PROMISE_VALUE_ASSIGN;
+extern const std::string EVENT_PROMISE_EXPRESSION_ASSIGN;
+extern const std::string EVENT_PROMISE_ENVIRONMENT_ASSIGN;
+extern const std::string EVENT_ENVIRONMENT_CREATE;
+extern const std::string EVENT_ENVIRONMENT_VARIABLE_ASSIGN;
+extern const std::string EVENT_ENVIRONMENT_VARIABLE_REMOVE;
+extern const std::string EVENT_ENVIRONMENT_VARIABLE_DEFINE;
+extern const std::string EVENT_ENVIRONMENT_VARIABLE_LOOKUP;
+
+extern const char RECORD_SEPARATOR;
+extern const char UNIT_SEPARATOR;
+
 #endif /* STRICTNESSDYNTRACER_CONSTANTS_H */
