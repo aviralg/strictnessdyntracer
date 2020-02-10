@@ -1,5 +1,5 @@
-#ifndef PROMISEDYNTRACER_TRACER_H
-#define PROMISEDYNTRACER_TRACER_H
+#ifndef STRICTNESSDYNTRACER_TRACER_H
+#define STRICTNESSDYNTRACER_TRACER_H
 
 #include <Rinternals.h>
 #undef TRUE
@@ -24,4 +24,4 @@ SEXP destroy_dyntracer(SEXP dyntracer_sexp);
 }
 #endif
 
-#endif /* PROMISEDYNTRACER_TRACER_H */
+#endif /* STRICTNESSDYNTRACER_TRACER_H */

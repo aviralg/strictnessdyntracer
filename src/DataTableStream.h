@@ -1,5 +1,5 @@
-#ifndef PROMISEDYNTRACER_DATA_TABLE_STREAM_H
-#define PROMISEDYNTRACER_DATA_TABLE_STREAM_H
+#ifndef STRICTNESSDYNTRACER_DATA_TABLE_STREAM_H
+#define STRICTNESSDYNTRACER_DATA_TABLE_STREAM_H
 
 #include "BufferStream.h"
 #include "FileStream.h"
@@ -173,4 +173,4 @@ class DataTableStream: public Stream {
     ZstdCompressionStream* zstd_compression_stream_;
 };
 
-#endif /* PROMISEDYNTRACER_DATA_TABLE_STREAM_H */
+#endif /* STRICTNESSDYNTRACER_DATA_TABLE_STREAM_H */

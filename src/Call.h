@@ -1,5 +1,5 @@
-#ifndef PROMISEDYNTRACER_CALL_H
-#define PROMISEDYNTRACER_CALL_H
+#ifndef STRICTNESSDYNTRACER_CALL_H
+#define STRICTNESSDYNTRACER_CALL_H
 
 #include "Argument.h"
 #include "Rdyntrace.h"

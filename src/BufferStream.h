@@ -1,5 +1,5 @@
-#ifndef PROMISEDYNTRACER_BUFFER_STREAM_H
-#define PROMISEDYNTRACER_BUFFER_STREAM_H
+#ifndef STRICTNESSDYNTRACER_BUFFER_STREAM_H
+#define STRICTNESSDYNTRACER_BUFFER_STREAM_H
 
 #include "Stream.h"
 #include "utilities.h"
@@ -88,4 +88,4 @@ class BufferStream: public Stream {
     char* buffer_;
 };
 
-#endif /* PROMISEDYNTRACER_BUFFER_STREAM_H */
+#endif /* STRICTNESSDYNTRACER_BUFFER_STREAM_H */

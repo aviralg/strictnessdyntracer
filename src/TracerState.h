@@ -1,5 +1,5 @@
-#ifndef PROMISEDYNTRACER_TRACER_STATE_H
-#define PROMISEDYNTRACER_TRACER_STATE_H
+#ifndef STRICTNESSDYNTRACER_TRACER_STATE_H
+#define STRICTNESSDYNTRACER_TRACER_STATE_H
 
 #include "Argument.h"
 #include "Call.h"
@@ -1585,4 +1585,4 @@ class TracerState {
     std::vector<PromiseLifecycleSummary> promise_lifecycle_summaries_;
 };
 
-#endif /* PROMISEDYNTRACER_TRACER_STATE_H */
+#endif /* STRICTNESSDYNTRACER_TRACER_STATE_H */

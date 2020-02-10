@@ -1,5 +1,5 @@
-#ifndef PROMISEDYNTRACER_PROBES_H
-#define PROMISEDYNTRACER_PROBES_H
+#ifndef STRICTNESSDYNTRACER_PROBES_H
+#define STRICTNESSDYNTRACER_PROBES_H
 
 #include "TracerState.h"
 #include "utilities.h"

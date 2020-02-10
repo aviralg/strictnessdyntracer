@@ -1,5 +1,5 @@
-#ifndef PROMISEDYNTRACER_SUBSTITUTE_SUMMARY_H
-#define PROMISEDYNTRACER_SUBSTITUTE_SUMMARY_H
+#ifndef STRICTNESSDYNTRACER_SUBSTITUTE_SUMMARY_H
+#define STRICTNESSDYNTRACER_SUBSTITUTE_SUMMARY_H
 
 #include "Call.h"
 #include "SubstituteClass.h"
@@ -47,4 +47,4 @@ class SubstituteSummary {
     bool is_mergeable_(const Call* const call, SubstituteClass subst_class);
 };
 
-#endif /* PROMISEDYNTRACER_SUBSTITUTE_SUMMARY_H */
+#endif /* STRICTNESSDYNTRACER_SUBSTITUTE_SUMMARY_H */

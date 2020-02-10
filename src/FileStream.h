@@ -1,5 +1,5 @@
-#ifndef PROMISEDYNTRACER_FILE_STREAM_H
-#define PROMISEDYNTRACER_FILE_STREAM_H
+#ifndef STRICTNESSDYNTRACER_FILE_STREAM_H
+#define STRICTNESSDYNTRACER_FILE_STREAM_H
 
 #include "Stream.h"
 
@@ -89,4 +89,4 @@ class FileStream: public Stream {
     int descriptor_;
 };
 
-#endif /* PROMISEDYNTRACER_FILE_STREAM_H */
+#endif /* STRICTNESSDYNTRACER_FILE_STREAM_H */

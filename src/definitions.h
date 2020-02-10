@@ -1,5 +1,5 @@
-#ifndef PROMISEDYNTRACER_DEFINITIONS_H
-#define PROMISEDYNTRACER_DEFINITIONS_H
+#ifndef STRICTNESSDYNTRACER_DEFINITIONS_H
+#define STRICTNESSDYNTRACER_DEFINITIONS_H
 
 #include <string>
 #include <vector>
@@ -31,4 +31,4 @@ typedef std::string scope_t;
 
 typedef int gc_cycle_t;
 
-#endif /* PROMISEDYNTRACER_DEFINITIONS_H */
+#endif /* STRICTNESSDYNTRACER_DEFINITIONS_H */
