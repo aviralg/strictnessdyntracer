@@ -158,7 +158,7 @@ void closure_entry(dyntracer_t* dyntracer,
     const call_id_t call_id = function_call->get_id();
 
     state.raise_event(EVENT_FUNCTION_ENTRY,
-                      CLOSXP,
+                      sexptype_to_string(CLOSXP),
                       function_id,
                       call_id,
                       state.lookup_environment(rho, false).get_id());
@@ -237,7 +237,7 @@ void builtin_entry(dyntracer_t* dyntracer,
     state.push_stack(function_call);
 
     state.raise_event(EVENT_FUNCTION_ENTRY,
-                      BUILTINSXP,
+                      sexptype_to_string(BUILTINSXP),
                       function_call->get_function()->get_id(),
                       function_call->get_id(),
                       state.lookup_environment(rho, false).get_id());
@@ -292,7 +292,7 @@ void special_entry(dyntracer_t* dyntracer,
     state.push_stack(function_call);
 
     state.raise_event(EVENT_FUNCTION_ENTRY,
-                      SPECIALSXP,
+                      sexptype_to_string(SPECIALSXP),
                       function_call->get_function()->get_id(),
                       function_call->get_id(),
                       state.lookup_environment(rho, false).get_id());
