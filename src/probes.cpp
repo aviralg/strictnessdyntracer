@@ -534,6 +534,8 @@ void promise_force_entry(dyntracer_t* dyntracer, const SEXP promise) {
 
     state.push_stack(promise_state);
 
+    state.raise_event(EVENT_PROMISE_ENTRY, promise_state->get_id());
+
     state.exit_probe(Event::PromiseForceEntry);
 }
 
