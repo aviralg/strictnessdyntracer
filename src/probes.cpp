@@ -616,6 +616,12 @@ void promise_environment_lookup(dyntracer_t* dyntracer, const SEXP promise) {
 
     promise_state->lookup_environment();
 
+    env_id_t env_id =
+        state.lookup_environment(promise_state->get_environment(), false);
+
+    state.raise_event(
+        EVENT_PROMISE_ENVIRONMENT_LOOKUP, promise_state->get_id(), env_id);
+
     state.exit_probe(Event::PromiseEnvironmentLookup);
 }
 
