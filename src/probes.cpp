@@ -636,6 +636,10 @@ void promise_expression_assign(dyntracer_t* dyntracer,
 
     promise_state->assign_expression();
 
+    state.raise_event(EVENT_PROMISE_EXPRESSION_ASSIGN,
+                      promise_state->get_id(),
+                      "<ignored-expression>");
+
     state.exit_probe(Event::PromiseExpressionAssign);
 }
 
