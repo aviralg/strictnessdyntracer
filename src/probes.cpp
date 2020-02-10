@@ -154,6 +154,15 @@ void closure_entry(dyntracer_t* dyntracer,
 
     state.push_stack(function_call);
 
+    const function_id_t& function_id = function_call->get_function()->get_id();
+    const call_id_t call_id = function_call->get_id();
+
+    state.raise_event(EVENT_FUNCTION_ENTRY,
+                      CLOSXP,
+                      function_id,
+                      call_id,
+                      state.lookup_environment(rho, false).get_id());
+
     state.exit_probe(Event::ClosureEntry);
 }
 
@@ -201,6 +210,12 @@ void builtin_entry(dyntracer_t* dyntracer,
 
     state.push_stack(function_call);
 
+    state.raise_event(EVENT_FUNCTION_ENTRY,
+                      BUILTINSXP,
+                      function_call->get_function()->get_id(),
+                      function_call->get_id(),
+                      state.lookup_environment(rho, false).get_id());
+
     state.exit_probe(Event::BuiltinEntry);
 }
 
@@ -247,6 +262,12 @@ void special_entry(dyntracer_t* dyntracer,
     set_dispatch(function_call, dispatch);
 
     state.push_stack(function_call);
+
+    state.raise_event(EVENT_FUNCTION_ENTRY,
+                      SPECIALSXP,
+                      function_call->get_function()->get_id(),
+                      function_call->get_id(),
+                      state.lookup_environment(rho, false).get_id());
 
     state.exit_probe(Event::SpecialEntry);
 }
