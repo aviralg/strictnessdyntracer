@@ -584,6 +584,10 @@ void promise_value_lookup(dyntracer_t* dyntracer, const SEXP promise) {
 
     promise_state->lookup_value();
 
+    state.raise_event(EVENT_PROMISE_VALUE_LOOKUP,
+                      promise_state->get_id(),
+                      promise_state->get_value_type());
+
     state.exit_probe(Event::PromiseValueLookup);
 }
 
