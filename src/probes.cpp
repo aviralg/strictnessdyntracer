@@ -490,8 +490,8 @@ void gc_allocate(dyntracer_t* dyntracer, const SEXP object) {
                           env_id,
                           "<ignored-expression>");
     } else if (TYPEOF(object) == ENVSXP) {
-        state.create_environment(object).get_id();
-
+        env_id_t env_id = state.create_environment(object).get_id();
+        state.raise_event(EVENT_ENVIRONMENT_CREATE, env_id);
     } else if (isVector(object)) {
         // analyzer.vector_alloc(info);
     }
