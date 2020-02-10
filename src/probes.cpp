@@ -170,7 +170,7 @@ void closure_entry(dyntracer_t* dyntracer,
         DenotedValue* value = argument->get_denoted_value();
         /* environment has already been created but parameter names may not be
          * bound yet, so we create them*/
-        variable_id_t variable_id =
+        var_id_t variable_id =
             state
                 .lookup_variable(
                     rho, argument->get_parameter_name(), false, true)
