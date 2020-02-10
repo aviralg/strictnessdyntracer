@@ -586,7 +586,7 @@ void promise_value_lookup(dyntracer_t* dyntracer, const SEXP promise) {
 
     state.raise_event(EVENT_PROMISE_VALUE_LOOKUP,
                       promise_state->get_id(),
-                      promise_state->get_value_type());
+                      sexptype_to_string(promise_state->get_value_type()));
 
     state.exit_probe(Event::PromiseValueLookup);
 }
@@ -656,7 +656,7 @@ void promise_value_assign(dyntracer_t* dyntracer,
 
     state.raise_event(EVENT_PROMISE_VALUE_ASSIGN,
                       promise_state->get_id(),
-                      get_sexp_type(value));
+                      value_type_to_string(value));
 
     state.exit_probe(Event::PromiseValueAssign);
 }
@@ -756,7 +756,7 @@ void environment_variable_define(dyntracer_t* dyntracer,
                           env_id,
                           var.get_id(),
                           variable.get_name(),
-                          type_of_sexp(value));
+                          value_type_to_string(value));
     }
 
     state.exit_probe(Event::EnvironmentVariableDefine);
@@ -798,7 +798,7 @@ void environment_variable_assign(dyntracer_t* dyntracer,
                       env_id,
                       var.get_id(),
                       variable.get_name(),
-                      type_of_sexp(value));
+                      value_type_to_string(value));
 
     state.exit_probe(Event::EnvironmentVariableAssign);
 }
@@ -844,7 +844,7 @@ void environment_variable_lookup(dyntracer_t* dyntracer,
                       env_id,
                       var.get_id(),
                       variable.get_name(),
-                      type_of_sexp(value));
+                      value_type_to_string(value));
 
     state.exit_probe(Event::EnvironmentVariableLookup);
 }
