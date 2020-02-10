@@ -482,8 +482,13 @@ void gc_allocate(dyntracer_t* dyntracer, const SEXP object) {
     state.increment_object_count(type_of_sexp(object));
 
     if (TYPEOF(object) == PROMSXP) {
-        state.create_promise(object);
-
+        DenotedValue* promise_state = state.create_promise(object);
+        env_id_t env_id =
+            state.lookup_environment(promise_state->get_environment(), false);
+        state.raise_event(EVENT_PROMISE_CREATE,
+                          promise_state->get_id(),
+                          env_id,
+                          "<ignored-expression>");
     } else if (TYPEOF(object) == ENVSXP) {
         state.create_environment(object).get_id();
 
