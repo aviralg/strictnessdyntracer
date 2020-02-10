@@ -189,6 +189,8 @@ void closure_exit(dyntracer_t* dyntracer,
 
     state.notify_caller(function_call);
 
+    state.raise_event(EVENT_FUNCTION_EXIT, function_call->get_id(), false);
+
     state.destroy_call(function_call);
 
     state.exit_probe(Event::ClosureExit);
@@ -242,6 +244,8 @@ void builtin_exit(dyntracer_t* dyntracer,
 
     state.notify_caller(function_call);
 
+    state.raise_event(EVENT_FUNCTION_EXIT, function_call->get_id(), false);
+
     state.destroy_call(function_call);
 
     state.exit_probe(Event::BuiltinExit);
@@ -294,6 +298,8 @@ void special_exit(dyntracer_t* dyntracer,
     function_call->set_return_value_type(type_of_sexp(return_value));
 
     state.notify_caller(function_call);
+
+    state.raise_event(EVENT_FUNCTION_EXIT, function_call->get_id(), false);
 
     state.destroy_call(function_call);
 
@@ -371,6 +377,8 @@ void jump_single_context(TracerState& state,
         call->set_return_value_type(return_value_type);
 
         state.notify_caller(call);
+
+        state.raise_event(EVENT_FUNCTION_EXIT, call->get_id(), true);
 
         state.destroy_call(call);
     }
