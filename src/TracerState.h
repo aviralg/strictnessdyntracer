@@ -1041,6 +1041,10 @@ class TracerState {
 
                     name = TAG(dot_dot_dot_arguments);
 
+                    if (name == R_NilValue) {
+                        name = R_DotsSymbol;
+                    }
+
                     SEXP dot_dot_dot_argument = CAR(dot_dot_dot_arguments);
 
                     process_closure_argument_(call,
