@@ -807,16 +807,16 @@ void environment_variable_assign(dyntracer_t* dyntracer,
     */
     if (!state.argument_list_creation_mode_is_enabled()) {
         state.identify_side_effect_creators(var, rho);
-    }
 
-    /* environment should have already been created when we called
-     * update_variable */
-    env_id_t env_id = state.lookup_environment(rho, false).get_id();
-    state.raise_event(EVENT_ENVIRONMENT_VARIABLE_ASSIGN,
-                      env_id,
-                      var.get_id(),
-                      var.get_name(),
-                      value_type_to_string(value));
+        /* environment should have already been created when we called
+         * update_variable */
+        env_id_t env_id = state.lookup_environment(rho, false).get_id();
+        state.raise_event(EVENT_ENVIRONMENT_VARIABLE_ASSIGN,
+                          env_id,
+                          var.get_id(),
+                          var.get_name(),
+                          value_type_to_string(value));
+    }
 
     state.exit_probe(Event::EnvironmentVariableAssign);
 }
@@ -830,13 +830,15 @@ void environment_variable_remove(dyntracer_t* dyntracer,
 
     Variable var = state.lookup_variable(rho, symbol);
 
-    /* environment should have already been created when we called
-     * lookup_variable */
-    env_id_t env_id = state.lookup_environment(rho, false).get_id();
-    state.raise_event(EVENT_ENVIRONMENT_VARIABLE_REMOVE,
-                      env_id,
-                      var.get_id(),
-                      var.get_name());
+    if (!state.argument_list_creation_mode_is_enabled()) {
+        /* environment should have already been created when we called
+         * lookup_variable */
+        env_id_t env_id = state.lookup_environment(rho, false).get_id();
+        state.raise_event(EVENT_ENVIRONMENT_VARIABLE_REMOVE,
+                          env_id,
+                          var.get_id(),
+                          var.get_name());
+    }
 
     state.exit_probe(Event::EnvironmentVariableRemove);
 }
@@ -853,16 +855,16 @@ void environment_variable_lookup(dyntracer_t* dyntracer,
 
     if (!state.argument_list_creation_mode_is_enabled()) {
         state.identify_side_effect_observers(var, rho);
-    }
 
-    /* environment should have already been created when we called
-     * lookup_variable */
-    env_id_t env_id = state.lookup_environment(rho, false).get_id();
-    state.raise_event(EVENT_ENVIRONMENT_VARIABLE_LOOKUP,
-                      env_id,
-                      var.get_id(),
-                      var.get_name(),
-                      value_type_to_string(value));
+        /* environment should have already been created when we called
+         * lookup_variable */
+        env_id_t env_id = state.lookup_environment(rho, false).get_id();
+        state.raise_event(EVENT_ENVIRONMENT_VARIABLE_LOOKUP,
+                          env_id,
+                          var.get_id(),
+                          var.get_name(),
+                          value_type_to_string(value));
+    }
 
     state.exit_probe(Event::EnvironmentVariableLookup);
 }
