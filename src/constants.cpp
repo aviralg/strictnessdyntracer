@@ -57,6 +57,10 @@ const event_type_t EVENT_ENVIRONMENT_VARIABLE_ASSIGN = "ena";
 const event_type_t EVENT_ENVIRONMENT_VARIABLE_REMOVE = "enr";
 const event_type_t EVENT_ENVIRONMENT_VARIABLE_DEFINE = "end";
 const event_type_t EVENT_ENVIRONMENT_VARIABLE_LOOKUP = "enl";
+const event_type_t EVENT_FILE_OPEN = "flo";
+const event_type_t EVENT_FILE_WRITE = "flw";
+const event_type_t EVENT_FILE_READ = "flr";
+const event_type_t EVENT_FILE_CLOSE = "flc";
 
 const char RECORD_SEPARATOR = 0x1e;
 const char UNIT_SEPARATOR = 0x1f;

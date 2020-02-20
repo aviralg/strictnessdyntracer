@@ -58,6 +58,10 @@ extern const event_type_t EVENT_ENVIRONMENT_VARIABLE_ASSIGN;
 extern const event_type_t EVENT_ENVIRONMENT_VARIABLE_REMOVE;
 extern const event_type_t EVENT_ENVIRONMENT_VARIABLE_DEFINE;
 extern const event_type_t EVENT_ENVIRONMENT_VARIABLE_LOOKUP;
+extern const event_type_t EVENT_FILE_OPEN;
+extern const event_type_t EVENT_FILE_READ;
+extern const event_type_t EVENT_FILE_WRITE;
+extern const event_type_t EVENT_FILE_CLOSE;
 
 extern const char RECORD_SEPARATOR;
 extern const char UNIT_SEPARATOR;
