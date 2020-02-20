@@ -9,12 +9,12 @@
 #include <type_traits>
 
 #define failwith(format, ...) \
-    failwith_impl(__FILE__, __LINE__, format, __VA_ARGS__)
+    failwith_impl(__FILE__, __LINE__, format, ##__VA_ARGS__)
 
-#define failwith_impl(file, line, format, ...)                             \
-    do {                                                                   \
-        fprintf(stderr, "ERROR [%s:%d] " format, file, line, __VA_ARGS__); \
-        exit(EXIT_FAILURE);                                                \
+#define failwith_impl(file, line, format, ...)                               \
+    do {                                                                     \
+        fprintf(stderr, "ERROR [%s:%d] " format, file, line, ##__VA_ARGS__); \
+        exit(EXIT_FAILURE);                                                  \
     } while (0)
 
 int get_file_size(std::ifstream& file);
