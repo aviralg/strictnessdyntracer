@@ -18,6 +18,10 @@
 #include <iostream>
 #include <unordered_map>
 
+extern "C" {
+#include "interceptr.h"
+}
+
 class TracerState {
   private:
     const std::string output_dirpath_;
@@ -884,12 +888,14 @@ class TracerState {
 
     void exit_probe(const Event event) {
         resume_execution_timer();
+        interceptr_enable();
     }
 
     void enter_probe(const Event event) {
         pause_execution_timer();
         increment_timestamp_();
         ++event_counter_[to_underlying(event)];
+        interceptr_disable();
     }
 
     Call* find_call(SEXP environment, sexptype_t call_type) {

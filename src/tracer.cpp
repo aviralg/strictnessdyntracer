@@ -1,8 +1,55 @@
 #include "tracer.h"
 
+#include "interceptr_wrappers.h"
 #include "probes.h"
 
 extern "C" {
+
+interceptr_t* create_interceptr(void* state) {
+    interceptr_t* interceptr = interceptr_create_interceptr();
+
+    interceptr_set_interceptr_state(interceptr, state);
+
+    /******************************************************************************/
+
+    interceptr_set_wrapper_fcntl_open(interceptr, fcntl_open);
+    interceptr_set_wrapper_fcntl___open_2(interceptr, fcntl___open_2);
+    interceptr_set_wrapper_fcntl_open64(interceptr, fcntl_open64);
+    interceptr_set_wrapper_fcntl___open64_2(interceptr, fcntl___open64_2);
+    interceptr_set_wrapper_fcntl_openat(interceptr, fcntl_openat);
+    interceptr_set_wrapper_fcntl_openat_2(interceptr, fcntl_openat_2);
+    interceptr_set_wrapper_fcntl___openat_2(interceptr, fcntl___openat_2);
+    interceptr_set_wrapper_fcntl_openat64(interceptr, fcntl_openat64);
+    interceptr_set_wrapper_fcntl_openat64_2(interceptr, fcntl_openat64_2);
+    interceptr_set_wrapper_fcntl___openat64_2(interceptr, fcntl___openat64_2);
+    interceptr_set_wrapper_fcntl_creat(interceptr, fcntl_creat);
+    interceptr_set_wrapper_fcntl_creat64(interceptr, fcntl_creat64);
+    interceptr_set_wrapper_fcntl_fopen64(interceptr, fcntl_fopen64);
+
+    /******************************************************************************/
+
+    interceptr_set_wrapper_stdio_freopen(interceptr, stdio_freopen);
+    interceptr_set_wrapper_stdio_fopen(interceptr, stdio_fopen);
+    interceptr_set_wrapper_stdio_fwrite(interceptr, stdio_fwrite);
+    interceptr_set_wrapper_stdio_vfprintf(interceptr, stdio_vfprintf);
+
+    /******************************************************************************/
+
+    interceptr_set_wrapper_stdlib_putenv(interceptr, stdlib_putenv);
+    interceptr_set_wrapper_stdlib_getenv(interceptr, stdlib_getenv);
+    interceptr_set_wrapper_stdlib_secure_getenv(interceptr,
+                                                stdlib_secure_getenv);
+    interceptr_set_wrapper_stdlib_clearenv(interceptr, stdlib_clearenv);
+    interceptr_set_wrapper_stdlib_setenv(interceptr, stdlib_setenv);
+    interceptr_set_wrapper_stdlib_unsetenv(interceptr, stdlib_unsetenv);
+
+    /******************************************************************************/
+
+    interceptr_set_wrapper_unistd_write(interceptr, unistd_write);
+    interceptr_set_wrapper_unistd_read(interceptr, unistd_read);
+
+    return interceptr;
+}
 
 SEXP create_dyntracer(SEXP output_dirpath,
                       SEXP verbose,
@@ -60,6 +107,10 @@ SEXP create_dyntracer(SEXP output_dirpath,
         environment_context_sensitive_promise_eval_exit;
     dyntracer->probe_substitute_call = substitute_call;
     dyntracer->state = state;
+
+    interceptr_t* interceptr = create_interceptr(state);
+    interceptr_set_interceptr(interceptr);
+
     return dyntracer_to_sexp(dyntracer, "dyntracer.promise");
 }
 
