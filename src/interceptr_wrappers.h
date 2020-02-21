@@ -2,6 +2,8 @@ extern "C" {
 #include "interceptr.h"
 }
 
+#include "interceptr_stdlib_wrappers.h"
+
 extern "C" {
 
 int fcntl_open(struct interceptr_t* interceptr,
@@ -106,34 +108,6 @@ int stdio_vfprintf(struct interceptr_t* interceptr,
 
 /******************************************************************************/
 
-int stdlib_putenv(struct interceptr_t* interceptr,
-                  interceptr_putenv_t callback,
-                  char* string);
-
-char* stdlib_getenv(struct interceptr_t* interceptr,
-                    interceptr_getenv_t callback,
-                    const char* name);
-
-char* stdlib_secure_getenv(struct interceptr_t* interceptr,
-                           interceptr_getenv_t callback,
-                           const char* name);
-
-int stdlib_clearenv(struct interceptr_t* interceptr,
-                    interceptr_clearenv_t callback);
-
-int stdlib_setenv(struct interceptr_t* interceptr,
-                  interceptr_setenv_t callback,
-                  const char* name,
-                  const char* value,
-                  int overwrite);
-
-int stdlib_unsetenv(struct interceptr_t* interceptr,
-                    interceptr_unsetenv_t callback,
-                    const char* name);
-}
-
-/******************************************************************************/
-
 ssize_t unistd_write(struct interceptr_t* interceptr,
                      interceptr_write_t callback,
                      int fd,
@@ -145,3 +119,4 @@ ssize_t unistd_read(struct interceptr_t* interceptr,
                     int fd,
                     void* buf,
                     size_t count);
+}

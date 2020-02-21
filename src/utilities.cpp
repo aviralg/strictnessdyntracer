@@ -137,3 +137,16 @@ std::string pos_seq_to_string(const pos_seq_t& pos_seq) {
 
     return str + ")";
 }
+
+std::tuple<std::string, std::string>
+split_string(const std::string& str, const std::string& delimiter) {
+    size_t pos = str.find(delimiter);
+    if (pos == std::string::npos) {
+        return std::make_pair(str, "");
+    }
+
+    std::string first = str.substr(0, pos);
+    std::string second = str;
+    second.erase(0, pos + delimiter.length());
+    return std::make_pair(first, second);
+}

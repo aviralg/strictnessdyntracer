@@ -108,4 +108,7 @@ constexpr auto to_underlying(E e) noexcept {
     return static_cast<std::underlying_type_t<E>>(e);
 }
 
+std::tuple<std::string, std::string> split_string(const std::string& str,
+                                                  const std::string& delimiter);
+
 #endif /* STRICTNESSDYNTRACER_UTILITIES_H */

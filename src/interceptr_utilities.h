@@ -1,0 +1,8 @@
+#ifndef STRICTNESSDYNTRACER_INTERCEPTR_UTILITIES_H
+#define STRICTNESSDYNTRACER_INTERCEPTR_UTILITIES_H
+
+#include "TracerState.h"
+
+TracerState& tracer_state(interceptr_t* interceptr);
+
+#endif /* STRICTNESSDYNTRACER_INTERCEPTR_UTILITIES_H */

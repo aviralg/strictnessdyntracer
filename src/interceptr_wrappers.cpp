@@ -1,10 +1,7 @@
 #include "interceptr_wrappers.h"
 
 #include "TracerState.h"
-
-inline TracerState& tracer_state(interceptr_t* interceptr) {
-    return *(static_cast<TracerState*>(interceptr->state));
-}
+#include "interceptr_utilities.h"
 
 /* https://stackoverflow.com/questions/1188757/retrieve-filename-from-file-descriptor-in-c
  */
@@ -227,8 +224,7 @@ int fcntl_creat(struct interceptr_t* interceptr,
       A call to creat() is equivalent to calling open() with flags equal to
       O_CREAT|O_WRONLY|O_TRUNC.
      */
-    tracer_state(interceptr)
-        .raise_event(EVENT_FILE_OPEN, path, "CWT", "creat");
+    tracer_state(interceptr).raise_event(EVENT_FILE_OPEN, path, "CWT", "creat");
     return callback(path, mode);
 }
 
@@ -308,51 +304,6 @@ int stdio_vfprintf(struct interceptr_t* interceptr,
     tracer_state(interceptr)
         .raise_event(EVENT_FILE_WRITE, fd_to_path(fileno(stream)), "vfprintf");
     return callback(stream, format, arg);
-}
-
-/******************************************************************************/
-
-int stdlib_putenv(struct interceptr_t* interceptr,
-                  interceptr_putenv_t callback,
-                  char* string) {
-    // environment_put("putenv", string);
-    return callback(string);
-}
-
-char* stdlib_getenv(struct interceptr_t* interceptr,
-                    interceptr_getenv_t callback,
-                    const char* name) {
-    // environment_get("getenv", name);
-    return callback(name);
-}
-
-char* stdlib_secure_getenv(struct interceptr_t* interceptr,
-                           interceptr_getenv_t callback,
-                           const char* name) {
-    // environment_get("secure_getenv", name);
-    return callback(name);
-}
-
-int stdlib_clearenv(struct interceptr_t* interceptr,
-                    interceptr_clearenv_t callback) {
-    // environment_clear("clearenv");
-    return callback();
-}
-
-int stdlib_setenv(struct interceptr_t* interceptr,
-                  interceptr_setenv_t callback,
-                  const char* name,
-                  const char* value,
-                  int overwrite) {
-    // environment_set("setenv", name, value, overwrite);
-    return callback(name, value, overwrite);
-}
-
-int stdlib_unsetenv(struct interceptr_t* interceptr,
-                    interceptr_unsetenv_t callback,
-                    const char* name) {
-    // environment_unset("unsetenv", name);
-    return callback(name);
 }
 
 /******************************************************************************/
