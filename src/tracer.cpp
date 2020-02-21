@@ -54,7 +54,12 @@ interceptr_t* create_interceptr(void* state) {
     interceptr_set_wrapper_sys_stat___xstat(interceptr, sys_stat___xstat);
     interceptr_set_wrapper_sys_stat_stat64(interceptr, sys_stat_stat64);
     interceptr_set_wrapper_sys_stat___xstat64(interceptr, sys_stat___xstat64);
+
     interceptr_set_wrapper_sys_stat_fstat(interceptr, sys_stat_fstat);
+    interceptr_set_wrapper_sys_stat___fxstat(interceptr, sys_stat___fxstat);
+    interceptr_set_wrapper_sys_stat_fstat64(interceptr, sys_stat_fstat64);
+    interceptr_set_wrapper_sys_stat___fxstat64(interceptr, sys_stat___fxstat64);
+
     interceptr_set_wrapper_sys_stat_fstatat(interceptr, sys_stat_fstatat);
     interceptr_set_wrapper_sys_stat_lstat(interceptr, sys_stat_lstat);
     interceptr_set_wrapper_sys_stat_chmod(interceptr, sys_stat_chmod);

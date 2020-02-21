@@ -32,6 +32,23 @@ extern "C" int sys_stat_fstat(struct interceptr_t* interceptr,
                               int fd,
                               struct stat* buf);
 
+extern "C" int sys_stat___fxstat(struct interceptr_t* interceptr,
+                                 interceptr___fxstat_t callback,
+                                 int version,
+                                 int fd,
+                                 struct stat* buf);
+
+extern "C" int sys_stat_fstat64(struct interceptr_t* interceptr,
+                                interceptr_fstat64_t callback,
+                                int fd,
+                                struct stat64* buf);
+
+extern "C" int sys_stat___fxstat64(struct interceptr_t* interceptr,
+                                   interceptr___fxstat64_t callback,
+                                   int version,
+                                   int fd,
+                                   struct stat64* buf);
+
 extern "C" int sys_stat_fstatat(struct interceptr_t* interceptr,
                                 interceptr_fstatat_t callback,
                                 int dirfd,

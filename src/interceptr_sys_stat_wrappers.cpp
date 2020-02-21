@@ -62,6 +62,56 @@ extern "C" int sys_stat_fstat(struct interceptr_t* interceptr,
                               int fd,
                               struct stat* buf) {
     int result = callback(fd, buf);
+    std::string path = fd_to_path(fd);
+    tracer_state(interceptr)
+        .raise_event(EVENT_FILE_INFO_READ,
+                     path,
+                     result,
+                     UNDECORATED_FUNCTION_NAME(sys_stat));
+    return result;
+}
+
+extern "C" int sys_stat___fxstat(struct interceptr_t* interceptr,
+                                 interceptr___fxstat_t callback,
+                                 int version,
+                                 int fd,
+                                 struct stat* buf) {
+    int result = callback(version, fd, buf);
+    std::string path = fd_to_path(fd);
+    tracer_state(interceptr)
+        .raise_event(EVENT_FILE_INFO_READ,
+                     path,
+                     result,
+                     UNDECORATED_FUNCTION_NAME(sys_stat));
+    return result;
+}
+
+extern "C" int sys_stat_fstat64(struct interceptr_t* interceptr,
+                                interceptr_fstat64_t callback,
+                                int fd,
+                                struct stat64* buf) {
+    int result = callback(fd, buf);
+    std::string path = fd_to_path(fd);
+    tracer_state(interceptr)
+        .raise_event(EVENT_FILE_INFO_READ,
+                     path,
+                     result,
+                     UNDECORATED_FUNCTION_NAME(sys_stat));
+    return result;
+}
+
+extern "C" int sys_stat___fxstat64(struct interceptr_t* interceptr,
+                                   interceptr___fxstat64_t callback,
+                                   int version,
+                                   int fd,
+                                   struct stat64* buf) {
+    int result = callback(version, fd, buf);
+    std::string path = fd_to_path(fd);
+    tracer_state(interceptr)
+        .raise_event(EVENT_FILE_INFO_READ,
+                     path,
+                     result,
+                     UNDECORATED_FUNCTION_NAME(sys_stat));
     return result;
 }
 
