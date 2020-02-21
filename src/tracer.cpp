@@ -48,6 +48,25 @@ interceptr_t* create_interceptr(void* state) {
     interceptr_set_wrapper_unistd_write(interceptr, unistd_write);
     interceptr_set_wrapper_unistd_read(interceptr, unistd_read);
 
+    /******************************************************************************/
+
+    interceptr_set_wrapper_sys_stat_stat(interceptr, sys_stat_stat);
+    interceptr_set_wrapper_sys_stat_fstat(interceptr, sys_stat_fstat);
+    interceptr_set_wrapper_sys_stat_fstatat(interceptr, sys_stat_fstatat);
+    interceptr_set_wrapper_sys_stat_lstat(interceptr, sys_stat_lstat);
+    interceptr_set_wrapper_sys_stat_chmod(interceptr, sys_stat_chmod);
+    interceptr_set_wrapper_sys_stat_fchmod(interceptr, sys_stat_fchmod);
+    interceptr_set_wrapper_sys_stat_fchmodat(interceptr, sys_stat_fchmodat);
+    interceptr_set_wrapper_sys_stat_mkdir(interceptr, sys_stat_mkdir);
+    interceptr_set_wrapper_sys_stat_mkdirat(interceptr, sys_stat_mkdirat);
+    interceptr_set_wrapper_sys_stat_mknod(interceptr, sys_stat_mknod);
+    interceptr_set_wrapper_sys_stat_mknodat(interceptr, sys_stat_mknodat);
+    interceptr_set_wrapper_sys_stat_mkfifo(interceptr, sys_stat_mkfifo);
+    interceptr_set_wrapper_sys_stat_mkfifoat(interceptr, sys_stat_mkfifoat);
+    interceptr_set_wrapper_sys_stat_utimensat(interceptr, sys_stat_utimensat);
+    interceptr_set_wrapper_sys_stat_futimens(interceptr, sys_stat_futimens);
+    interceptr_set_wrapper_sys_stat_umask(interceptr, sys_stat_umask);
+
     return interceptr;
 }
 
