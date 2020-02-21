@@ -1,3 +1,6 @@
+#ifndef STRICTNESSDYNTRACER_INTERCEPTR_UNISTD_WRAPPERS_H
+#define STRICTNESSDYNTRACER_INTERCEPTR_UNISTD_WRAPPERS_H
+
 extern "C" {
 #include "interceptr.h"
 }
@@ -13,3 +16,5 @@ extern "C" ssize_t unistd_read(struct interceptr_t* interceptr,
                                int fd,
                                void* buf,
                                size_t count);
+
+#endif /* STRICTNESSDYNTRACER_INTERCEPTR_UNISTD_WRAPPERS_H */

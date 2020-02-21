@@ -1,3 +1,6 @@
+#ifndef STRICTNESSDYNTRACER_INTERCEPTR_STDLIB_WRAPPERS_H
+#define STRICTNESSDYNTRACER_INTERCEPTR_STDLIB_WRAPPERS_H
+
 extern "C" {
 #include "interceptr.h"
 }
@@ -26,3 +29,5 @@ extern "C" int stdlib_setenv(struct interceptr_t* interceptr,
 extern "C" int stdlib_unsetenv(struct interceptr_t* interceptr,
                                interceptr_unsetenv_t callback,
                                const char* name);
+
+#endif /* STRICTNESSDYNTRACER_INTERCEPTR_STDLIB_WRAPPERS_H */

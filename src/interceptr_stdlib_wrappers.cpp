@@ -68,7 +68,6 @@ int stdlib_setenv(struct interceptr_t* interceptr,
 int stdlib_unsetenv(struct interceptr_t* interceptr,
                     interceptr_unsetenv_t callback,
                     const char* name) {
-    // environment_unset("unsetenv", name);
     std::string variable = name;
     int result = callback(name);
     tracer_state(interceptr)
