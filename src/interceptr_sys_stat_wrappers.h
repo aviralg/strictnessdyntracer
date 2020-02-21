@@ -61,6 +61,23 @@ extern "C" int sys_stat_lstat(struct interceptr_t* interceptr,
                               const char* path,
                               struct stat* buf);
 
+extern "C" int sys_stat___lxstat(struct interceptr_t* interceptr,
+                                 interceptr___lxstat_t callback,
+                                 int version,
+                                 const char* path,
+                                 struct stat* buf);
+
+extern "C" int sys_stat_lstat64(struct interceptr_t* interceptr,
+                                interceptr_lstat64_t callback,
+                                const char* path,
+                                struct stat64* buf);
+
+extern "C" int sys_stat___lxstat64(struct interceptr_t* interceptr,
+                                   interceptr___lxstat64_t callback,
+                                   int version,
+                                   const char* path,
+                                   struct stat64* buf);
+
 extern "C" int sys_stat_chmod(struct interceptr_t* interceptr,
                               interceptr_chmod_t callback,
                               const char* path,

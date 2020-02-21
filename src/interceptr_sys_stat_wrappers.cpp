@@ -3,6 +3,14 @@
 #include "TracerState.h"
 #include "interceptr_utilities.h"
 
+#define serialize_event(event_name, ...) \
+    tracer_state(interceptr)             \
+        .raise_event(                    \
+            event_name, ##__VA_ARGS__, UNDECORATED_FUNCTION_NAME(sys_stat));
+
+#define serialize_file_info_read_event(path, result) \
+    serialize_event(EVENT_FILE_INFO_READ, path, result)
+
 extern "C" int sys_stat_stat(struct interceptr_t* interceptr,
                              interceptr_stat_t callback,
                              const char* path,
@@ -130,6 +138,36 @@ extern "C" int sys_stat_lstat(struct interceptr_t* interceptr,
                               const char* path,
                               struct stat* buf) {
     int result = callback(path, buf);
+    serialize_file_info_read_event(path, result);
+    return result;
+}
+
+extern "C" int sys_stat___lxstat(struct interceptr_t* interceptr,
+                                 interceptr___lxstat_t callback,
+                                 int version,
+                                 const char* path,
+                                 struct stat* buf) {
+    int result = callback(version, path, buf);
+    serialize_file_info_read_event(path, result);
+    return result;
+}
+
+extern "C" int sys_stat_lstat64(struct interceptr_t* interceptr,
+                                interceptr_lstat64_t callback,
+                                const char* path,
+                                struct stat64* buf) {
+    int result = callback(path, buf);
+    serialize_file_info_read_event(path, result);
+    return result;
+}
+
+extern "C" int sys_stat___lxstat64(struct interceptr_t* interceptr,
+                                   interceptr___lxstat64_t callback,
+                                   int version,
+                                   const char* path,
+                                   struct stat64* buf) {
+    int result = callback(version, path, buf);
+    serialize_file_info_read_event(path, result);
     return result;
 }
 
