@@ -16,11 +16,16 @@ extern "C" int sys_stat___xstat(struct interceptr_t* interceptr,
                                 const char* path,
                                 struct stat* buf);
 
+extern "C" int sys_stat_stat64(struct interceptr_t* interceptr,
+                               interceptr_stat64_t callback,
+                               const char* path,
+                               struct stat64* buf);
+
 extern "C" int sys_stat___xstat64(struct interceptr_t* interceptr,
                                   interceptr___xstat64_t callback,
                                   int version,
                                   const char* path,
-                                  struct stat* buf);
+                                  struct stat64* buf);
 
 extern "C" int sys_stat_fstat(struct interceptr_t* interceptr,
                               interceptr_fstat_t callback,

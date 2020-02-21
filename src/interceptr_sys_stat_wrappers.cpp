@@ -30,11 +30,24 @@ extern "C" int sys_stat___xstat(struct interceptr_t* interceptr,
     return result;
 }
 
+extern "C" int sys_stat_stat64(struct interceptr_t* interceptr,
+                               interceptr_stat64_t callback,
+                               const char* path,
+                               struct stat64* buf) {
+    int result = callback(path, buf);
+    tracer_state(interceptr)
+        .raise_event(EVENT_FILE_INFO_READ,
+                     path,
+                     result,
+                     UNDECORATED_FUNCTION_NAME(sys_stat));
+    return result;
+}
+
 extern "C" int sys_stat___xstat64(struct interceptr_t* interceptr,
                                   interceptr___xstat64_t callback,
                                   int version,
                                   const char* path,
-                                  struct stat* buf) {
+                                  struct stat64* buf) {
     int result = callback(version, path, buf);
     tracer_state(interceptr)
         .raise_event(EVENT_FILE_INFO_READ,
