@@ -19,6 +19,40 @@ std::string fd_to_path(int fd) {
     return filename;
 }
 
+bool is_absolute_path(std::string path) {
+    return path[0] == '/';
+}
+
+bool is_absolute_path(const char* path) {
+    return path[0] == '/';
+}
+
+std::string fd_to_path(int dirfd, const char* path) {
+    if (is_absolute_path(path)) {
+        return path;
+    }
+    std::string filepath = "/proc/self/fd/" + std::to_string(dirfd);
+    const int bufsize = 1000;
+    int bytes = -1;
+    char filename[bufsize] = "<unknown-file-name>";
+    if (!access(filepath.c_str(), R_OK)) {
+        bytes = readlink(filepath.c_str(), filename, bufsize);
+        if (bytes != -1) {
+            filename[bytes] = '\0';
+        }
+        else {
+            failwith("expected readlink to read %s", filepath.c_str());
+        }
+    }
+
+    // expect bytes > 0
+    if (filename[bytes - 1] == '/') {
+        return std::string(filename) + path;
+    } else {
+        return std::string(filename) + "/" + path;
+    }
+}
+
 const char* process_file_mode_number(int mode, char* str_mode) {
     int index = 0;
     if (mode & O_RDONLY)

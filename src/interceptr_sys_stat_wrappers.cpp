@@ -11,6 +11,9 @@
 #define serialize_file_info_read_event(path, result) \
     serialize_event(EVENT_FILE_INFO_READ, path, result)
 
+#define serialize_file_info_write_event(path, mode, result) \
+    serialize_event(EVENT_FILE_INFO_WRITE, path, mode, result)
+
 extern "C" int sys_stat_stat(struct interceptr_t* interceptr,
                              interceptr_stat_t callback,
                              const char* path,
@@ -176,6 +179,7 @@ extern "C" int sys_stat_chmod(struct interceptr_t* interceptr,
                               const char* path,
                               mode_t mode) {
     int result = callback(path, mode);
+    serialize_file_info_write_event(path, mode, result);
     return result;
 }
 
@@ -184,6 +188,7 @@ extern "C" int sys_stat_fchmod(struct interceptr_t* interceptr,
                                int fd,
                                mode_t mode) {
     int result = callback(fd, mode);
+    serialize_file_info_write_event(fd_to_path(fd), mode, result);
     return result;
 }
 
@@ -194,6 +199,7 @@ extern "C" int sys_stat_fchmodat(struct interceptr_t* interceptr,
                                  mode_t mode,
                                  int flags) {
     int result = callback(dirfd, pathname, mode, flags);
+    serialize_file_info_write_event(fd_to_path(dirfd, pathname), mode, result);
     return result;
 }
 

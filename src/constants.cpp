@@ -62,6 +62,7 @@ const event_type_t EVENT_FILE_WRITE = "flw";
 const event_type_t EVENT_FILE_READ = "flr";
 const event_type_t EVENT_FILE_CLOSE = "flc";
 const event_type_t EVENT_FILE_INFO_READ = "fli";
+const event_type_t EVENT_FILE_INFO_WRITE = "fiw";
 const event_type_t EVENT_ENVVAR_ASSIGN = "vaa";
 const event_type_t EVENT_ENVVAR_REMOVE = "var";
 const event_type_t EVENT_ENVVAR_LOOKUP = "val";

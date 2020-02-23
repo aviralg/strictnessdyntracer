@@ -63,6 +63,7 @@ extern const event_type_t EVENT_FILE_READ;
 extern const event_type_t EVENT_FILE_WRITE;
 extern const event_type_t EVENT_FILE_CLOSE;
 extern const event_type_t EVENT_FILE_INFO_READ;
+extern const event_type_t EVENT_FILE_INFO_WRITE;
 extern const event_type_t EVENT_ENVVAR_ASSIGN;
 extern const event_type_t EVENT_ENVVAR_REMOVE;
 extern const event_type_t EVENT_ENVVAR_LOOKUP;
