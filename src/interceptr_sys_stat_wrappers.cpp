@@ -21,7 +21,7 @@ extern "C" int sys_stat_stat(struct interceptr_t* interceptr,
     int result = callback(path, buf);
     tracer_state(interceptr)
         .raise_event(EVENT_FILE_INFO_READ,
-                     path,
+                     to_absolute_path(path),
                      result,
                      UNDECORATED_FUNCTION_NAME(sys_stat));
     return result;
@@ -35,7 +35,7 @@ extern "C" int sys_stat___xstat(struct interceptr_t* interceptr,
     int result = callback(version, path, buf);
     tracer_state(interceptr)
         .raise_event(EVENT_FILE_INFO_READ,
-                     path,
+                     to_absolute_path(path),
                      result,
                      UNDECORATED_FUNCTION_NAME(sys_stat));
     return result;
@@ -48,7 +48,7 @@ extern "C" int sys_stat_stat64(struct interceptr_t* interceptr,
     int result = callback(path, buf);
     tracer_state(interceptr)
         .raise_event(EVENT_FILE_INFO_READ,
-                     path,
+                     to_absolute_path(path),
                      result,
                      UNDECORATED_FUNCTION_NAME(sys_stat));
     return result;
@@ -62,7 +62,7 @@ extern "C" int sys_stat___xstat64(struct interceptr_t* interceptr,
     int result = callback(version, path, buf);
     tracer_state(interceptr)
         .raise_event(EVENT_FILE_INFO_READ,
-                     path,
+                     to_absolute_path(path),
                      result,
                      UNDECORATED_FUNCTION_NAME(sys_stat));
     return result;
@@ -76,7 +76,7 @@ extern "C" int sys_stat_fstat(struct interceptr_t* interceptr,
     std::string path = fd_to_path(fd);
     tracer_state(interceptr)
         .raise_event(EVENT_FILE_INFO_READ,
-                     path,
+                     to_absolute_path(path),
                      result,
                      UNDECORATED_FUNCTION_NAME(sys_stat));
     return result;
@@ -91,7 +91,7 @@ extern "C" int sys_stat___fxstat(struct interceptr_t* interceptr,
     std::string path = fd_to_path(fd);
     tracer_state(interceptr)
         .raise_event(EVENT_FILE_INFO_READ,
-                     path,
+                     to_absolute_path(path),
                      result,
                      UNDECORATED_FUNCTION_NAME(sys_stat));
     return result;
@@ -105,7 +105,7 @@ extern "C" int sys_stat_fstat64(struct interceptr_t* interceptr,
     std::string path = fd_to_path(fd);
     tracer_state(interceptr)
         .raise_event(EVENT_FILE_INFO_READ,
-                     path,
+                     to_absolute_path(path),
                      result,
                      UNDECORATED_FUNCTION_NAME(sys_stat));
     return result;
@@ -120,7 +120,7 @@ extern "C" int sys_stat___fxstat64(struct interceptr_t* interceptr,
     std::string path = fd_to_path(fd);
     tracer_state(interceptr)
         .raise_event(EVENT_FILE_INFO_READ,
-                     path,
+                     to_absolute_path(path),
                      result,
                      UNDECORATED_FUNCTION_NAME(sys_stat));
     return result;
@@ -141,7 +141,7 @@ extern "C" int sys_stat_lstat(struct interceptr_t* interceptr,
                               const char* path,
                               struct stat* buf) {
     int result = callback(path, buf);
-    serialize_file_info_read_event(path, result);
+    serialize_file_info_read_event(to_absolute_path(path), result);
     return result;
 }
 
@@ -151,7 +151,7 @@ extern "C" int sys_stat___lxstat(struct interceptr_t* interceptr,
                                  const char* path,
                                  struct stat* buf) {
     int result = callback(version, path, buf);
-    serialize_file_info_read_event(path, result);
+    serialize_file_info_read_event(to_absolute_path(path), result);
     return result;
 }
 
@@ -160,7 +160,7 @@ extern "C" int sys_stat_lstat64(struct interceptr_t* interceptr,
                                 const char* path,
                                 struct stat64* buf) {
     int result = callback(path, buf);
-    serialize_file_info_read_event(path, result);
+    serialize_file_info_read_event(to_absolute_path(path), result);
     return result;
 }
 
@@ -170,7 +170,7 @@ extern "C" int sys_stat___lxstat64(struct interceptr_t* interceptr,
                                    const char* path,
                                    struct stat64* buf) {
     int result = callback(version, path, buf);
-    serialize_file_info_read_event(path, result);
+    serialize_file_info_read_event(to_absolute_path(path), result);
     return result;
 }
 
@@ -179,7 +179,7 @@ extern "C" int sys_stat_chmod(struct interceptr_t* interceptr,
                               const char* path,
                               mode_t mode) {
     int result = callback(path, mode);
-    serialize_file_info_write_event(path, mode, result);
+    serialize_file_info_write_event(to_absolute_path(path), mode, result);
     return result;
 }
 

@@ -19,18 +19,45 @@ std::string fd_to_path(int fd) {
     return filename;
 }
 
-bool is_absolute_path(std::string path) {
+bool is_absolute_path(const std::string& path) {
     return path[0] == '/';
 }
 
 bool is_absolute_path(const char* path) {
-    return path[0] == '/';
+    return is_absolute_path(std::string(path));
 }
 
-std::string fd_to_path(int dirfd, const char* path) {
+std::string to_absolute_path(const std::string& path) {
     if (is_absolute_path(path)) {
         return path;
     }
+
+    char* buffer = getcwd(NULL, 0);
+
+    std::string cwd(buffer);
+
+    free(buffer);
+
+    if (cwd.back() == '/') {
+        return cwd + path;
+    } else {
+        return cwd + "/" + path;
+    }
+}
+
+std::string to_absolute_path(const char* path) {
+    return to_absolute_path(std::string(path));
+}
+
+std::string fd_to_path(int dirfd, const char* path) {
+    if (dirfd == AT_FDCWD) {
+        return to_absolute_path(path);
+    }
+
+    if (is_absolute_path(path)) {
+        return path;
+    }
+
     std::string filepath = "/proc/self/fd/" + std::to_string(dirfd);
     const int bufsize = 1000;
     int bytes = -1;
@@ -39,8 +66,7 @@ std::string fd_to_path(int dirfd, const char* path) {
         bytes = readlink(filepath.c_str(), filename, bufsize);
         if (bytes != -1) {
             filename[bytes] = '\0';
-        }
-        else {
+        } else {
             failwith("expected readlink to read %s", filepath.c_str());
         }
     }
