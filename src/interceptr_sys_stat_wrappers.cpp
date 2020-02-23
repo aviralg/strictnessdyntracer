@@ -19,11 +19,7 @@ extern "C" int sys_stat_stat(struct interceptr_t* interceptr,
                              const char* path,
                              struct stat* buf) {
     int result = callback(path, buf);
-    tracer_state(interceptr)
-        .raise_event(EVENT_FILE_INFO_READ,
-                     to_absolute_path(path),
-                     result,
-                     UNDECORATED_FUNCTION_NAME(sys_stat));
+    serialize_file_info_read_event(to_absolute_path(path), result);
     return result;
 }
 
@@ -33,11 +29,7 @@ extern "C" int sys_stat___xstat(struct interceptr_t* interceptr,
                                 const char* path,
                                 struct stat* buf) {
     int result = callback(version, path, buf);
-    tracer_state(interceptr)
-        .raise_event(EVENT_FILE_INFO_READ,
-                     to_absolute_path(path),
-                     result,
-                     UNDECORATED_FUNCTION_NAME(sys_stat));
+    serialize_file_info_read_event(to_absolute_path(path), result);
     return result;
 }
 
@@ -46,11 +38,7 @@ extern "C" int sys_stat_stat64(struct interceptr_t* interceptr,
                                const char* path,
                                struct stat64* buf) {
     int result = callback(path, buf);
-    tracer_state(interceptr)
-        .raise_event(EVENT_FILE_INFO_READ,
-                     to_absolute_path(path),
-                     result,
-                     UNDECORATED_FUNCTION_NAME(sys_stat));
+    serialize_file_info_read_event(to_absolute_path(path), result);
     return result;
 }
 
@@ -60,11 +48,7 @@ extern "C" int sys_stat___xstat64(struct interceptr_t* interceptr,
                                   const char* path,
                                   struct stat64* buf) {
     int result = callback(version, path, buf);
-    tracer_state(interceptr)
-        .raise_event(EVENT_FILE_INFO_READ,
-                     to_absolute_path(path),
-                     result,
-                     UNDECORATED_FUNCTION_NAME(sys_stat));
+    serialize_file_info_read_event(to_absolute_path(path), result);
     return result;
 }
 
@@ -74,11 +58,7 @@ extern "C" int sys_stat_fstat(struct interceptr_t* interceptr,
                               struct stat* buf) {
     int result = callback(fd, buf);
     std::string path = fd_to_path(fd);
-    tracer_state(interceptr)
-        .raise_event(EVENT_FILE_INFO_READ,
-                     to_absolute_path(path),
-                     result,
-                     UNDECORATED_FUNCTION_NAME(sys_stat));
+    serialize_file_info_read_event(to_absolute_path(path), result);
     return result;
 }
 
@@ -89,11 +69,7 @@ extern "C" int sys_stat___fxstat(struct interceptr_t* interceptr,
                                  struct stat* buf) {
     int result = callback(version, fd, buf);
     std::string path = fd_to_path(fd);
-    tracer_state(interceptr)
-        .raise_event(EVENT_FILE_INFO_READ,
-                     to_absolute_path(path),
-                     result,
-                     UNDECORATED_FUNCTION_NAME(sys_stat));
+    serialize_file_info_read_event(to_absolute_path(path), result);
     return result;
 }
 
@@ -103,11 +79,7 @@ extern "C" int sys_stat_fstat64(struct interceptr_t* interceptr,
                                 struct stat64* buf) {
     int result = callback(fd, buf);
     std::string path = fd_to_path(fd);
-    tracer_state(interceptr)
-        .raise_event(EVENT_FILE_INFO_READ,
-                     to_absolute_path(path),
-                     result,
-                     UNDECORATED_FUNCTION_NAME(sys_stat));
+    serialize_file_info_read_event(to_absolute_path(path), result);
     return result;
 }
 
@@ -118,11 +90,7 @@ extern "C" int sys_stat___fxstat64(struct interceptr_t* interceptr,
                                    struct stat64* buf) {
     int result = callback(version, fd, buf);
     std::string path = fd_to_path(fd);
-    tracer_state(interceptr)
-        .raise_event(EVENT_FILE_INFO_READ,
-                     to_absolute_path(path),
-                     result,
-                     UNDECORATED_FUNCTION_NAME(sys_stat));
+    serialize_file_info_read_event(to_absolute_path(path), result);
     return result;
 }
 
